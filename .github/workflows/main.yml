@@ -3,30 +3,29 @@ name: C++ Build and Test
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - main  # Trigger on pushes to the main branch
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use Ubuntu as the environment
     
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: Checkout Code
+      uses: actions/checkout@v3  # Checkout the repository code
 
-    - name: Set up C++ environment
-      uses: actions/setup-cpp@v1
+    - name: Set up C++ Compiler
+      uses: actions/setup-toolchain@v1  # Use setup-toolchain for C++ environment
       with:
-        compiler: g++
-
-    - name: Build the C++ project
+        toolchain: 'gcc'  # You can specify a specific toolchain like 'gcc' or 'clang'
+    
+    - name: Build the project
       run: |
-        g++ -o factorial factorial.cpp
-        ./factorial
+        mkdir build
+        cd build
+        cmake ..
+        make  # Build the C++ project
 
-    - name: Run tests (optional)
+    - name: Run tests
       run: |
-        # Add your test commands here (if any)
-        echo "Test step can be added"
+        cd build
+        ./tests  # Run your test cases or executable
