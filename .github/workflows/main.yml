@@ -4,19 +4,22 @@ on:
   push:
     branches:
       - main  # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use Ubuntu as the environment
+    runs-on: ubuntu-latest  # You can use other OS types too like windows-latest or macos-latest
     
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3  # Checkout the repository code
 
     - name: Set up C++ Compiler
-      uses: actions/setup-toolchain@v1  # Use setup-toolchain for C++ environment
+      uses: actions/setup-cpp@v1  # This is the correct setup for C++ on GitHub Actions
       with:
-        toolchain: 'gcc'  # You can specify a specific toolchain like 'gcc' or 'clang'
+        compiler: 'gcc'  # You can specify 'clang' as well
     
     - name: Build the project
       run: |
