@@ -1,0 +1,32 @@
+name: C++ Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up C++ environment
+      uses: actions/setup-cpp@v1
+      with:
+        compiler: g++
+
+    - name: Build the C++ project
+      run: |
+        g++ -o factorial factorial.cpp
+        ./factorial
+
+    - name: Run tests (optional)
+      run: |
+        # Add your test commands here (if any)
+        echo "Test step can be added"
